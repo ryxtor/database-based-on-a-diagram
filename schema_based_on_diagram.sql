@@ -13,7 +13,7 @@ CREATE TABLE medical_histories (
   patient_id INT NOT NULL,
   status VARCHAR(100) NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT constraint_patient 
+  CONSTRAINT constraint_patient
   FOREIGN KEY(patient_id) REFERENCES patients(id)
 );
 
@@ -54,3 +54,10 @@ CREATE TABLE invoice_items (
   FOREIGN KEY(invoice_id) REFERENCES invoices(id),
   FOREIGN KEY(treatment_id) REFERENCES treatments(id)
 );
+
+CREATE INDEX mh_patient_id_idx ON medical_histories(patient_id);
+CREATE INDEX mhjt_medical_histories_id_idx ON mh_join_treatments(medical_histories_id);
+CREATE INDEX mhjt_treatments_id_idx ON mh_join_treatments(treatments_id);
+CREATE INDEX i_medical_history_id_idx ON invoices(medical_history_id);
+CREATE INDEX ii_invoice_id_idx ON invoice_items(invoice_id);
+CREATE INDEX ii_treatment_id_idx ON invoice_items(treatment_id);
